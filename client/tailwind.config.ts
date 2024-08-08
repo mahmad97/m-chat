@@ -12,10 +12,10 @@ const config: Config = {
 			sans: ['var(--font-inter)'],
 		},
 		screens: {
-			sm: '480px',
+			sm: '640px',
 			md: '768px',
 			lg: '1024x',
-			xl: '1440px',
+			xl: '1280px',
 		},
 	},
 	plugins: [],
