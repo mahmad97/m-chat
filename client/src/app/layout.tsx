@@ -1,5 +1,4 @@
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 
 import type { Metadata } from 'next';
 import type { ReactElement, ReactNode } from 'react';
@@ -26,8 +25,8 @@ const inter = Inter({
 const RootLayout = (props: RootLayoutProps): ReactElement => {
 	return (
 		<html lang='en' className={`${inter.variable}`}>
-			<body className='bg-slate-100 dark:bg-slate-800'>
-				<Script
+			<head>
+				<script
 					id='set-theme'
 					dangerouslySetInnerHTML={{
 						__html: `
@@ -54,6 +53,8 @@ const RootLayout = (props: RootLayoutProps): ReactElement => {
             `,
 					}}
 				/>
+			</head>
+			<body className='bg-slate-100 dark:bg-slate-800'>
 				<TopBar />
 				{props.children}
 			</body>
