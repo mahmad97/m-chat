@@ -31,11 +31,8 @@ const RootLayout = (props: RootLayoutProps): ReactElement => {
 					dangerouslySetInnerHTML={{
 						__html: `
                 function setTheme(newTheme) {
-                  if (newTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
+                  if (newTheme === 'dark') document.documentElement.classList.add('dark');
+                  else document.documentElement.classList.remove('dark');
                 }
                 
                 var preferredTheme = null;
