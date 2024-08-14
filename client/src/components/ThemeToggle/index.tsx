@@ -1,28 +1,22 @@
 'use client';
 
-import { useSyncExternalStore } from 'react';
-
 import type { ReactElement } from 'react';
 
-import ThemeContext from 'context/ThemeContext';
+import { useTheme } from 'hooks/useTheme';
 
 const ThemeToggle = (): ReactElement => {
-	const theme = useSyncExternalStore(
-		ThemeContext.subscribe,
-		ThemeContext.getSnapshot,
-		ThemeContext.getServerSnapshot
-	);
+	const [theme, setTheme] = useTheme();
 
 	const handleOnClickLight = () => {
-		ThemeContext.setTheme('light');
+		setTheme('light');
 	};
 
 	const handleOnClickDark = () => {
-		ThemeContext.setTheme('dark');
+		setTheme('dark');
 	};
 
 	const handleOnClickSystem = () => {
-		ThemeContext.setTheme('system');
+		setTheme('system');
 	};
 
 	return (

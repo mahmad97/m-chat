@@ -51,7 +51,7 @@ const RootLayout = (props: RootLayoutProps): ReactElement => {
 					}}
 				/>
 			</head>
-			<body className='bg-slate-100 dark:bg-slate-800'>
+			<body className='bg-slate-100 dark:bg-slate-900 border-slate-500 text-slate-700 dark:text-slate-300'>
 				<TopBar />
 				{props.children}
 			</body>

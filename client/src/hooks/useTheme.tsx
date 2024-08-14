@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from 'react';
+
 type Theme = 'light' | 'dark' | 'system';
 type DocTheme = 'light' | 'dark';
 
@@ -39,15 +41,8 @@ const onSystemThemeChange = (
 	listener();
 };
 
-const ThemeContext = {
-	setTheme: (newValue: Theme) => {
-		window.localStorage.setItem('theme', newValue);
-		window.dispatchEvent(
-			new StorageEvent('storage', { key: 'theme', newValue })
-		);
-	},
-	getSnapshot: () => localStorage.getItem('theme'),
-	subscribe: (listener: () => void) => {
+const useTheme = () => {
+	const subscribe = (listener: () => void) => {
 		let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 		window.addEventListener('storage', (event) =>
@@ -64,8 +59,22 @@ const ThemeContext = {
 				onSystemThemeChange(event, listener);
 			});
 		};
-	},
-	getServerSnapshot: () => 'system',
+	};
+
+	const getSnapshot = () => window.localStorage.getItem('theme');
+
+	const getServerSnapshot = () => 'system';
+
+	const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+	const setTheme = (newValue: Theme): void => {
+		window.localStorage.setItem('theme', newValue);
+		window.dispatchEvent(
+			new StorageEvent('storage', { key: 'theme', newValue })
+		);
+	};
+
+	return [theme, setTheme] as const;
 };
 
-export default ThemeContext;
+export { useTheme };
