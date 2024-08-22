@@ -1,0 +1,31 @@
+{
+	"name": "m-chat-server",
+	"description": "Server application for m-chat.",
+	"version": "0.1.0",
+	"author": "Mohammad Ahmad",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mahmad97/m-chat.git"
+	},
+	"homepage": "https://github.com/mahmad97/m-chat#readme",
+	"type": "module",
+	"engines": {
+		"node": "20"
+	},
+	"scripts": {
+		"dev": "tsx watch src/index.ts",
+		"build": "npx tsc",
+		"start": "node dist/index.js"
+	},
+	"dependencies": {
+		"express": "4"
+	},
+	"devDependencies": {
+		"@types/express": "4",
+		"@types/node": "22",
+		"dotenv": "16",
+		"tsx": "4",
+		"typescript": "5"
+	}
+}
