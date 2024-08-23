@@ -30,28 +30,28 @@ const RootLayout = (props: RootLayoutProps): ReactElement => {
 					id='set-theme'
 					dangerouslySetInnerHTML={{
 						__html: `
-                function setTheme(newTheme) {
-                  if (newTheme === 'dark') document.documentElement.classList.add('dark');
-                  else document.documentElement.classList.remove('dark');
-                }
-                
-                var preferredTheme = null;
-                try {
-                  preferredTheme = localStorage.getItem('theme');
-                } catch (_) {}
-                
-                if (preferredTheme && (preferredTheme === 'dark' || preferredTheme === 'light')) {
-                  setTheme(preferredTheme);
-                } else {
-                  localStorage.setItem('theme', 'system');
-                  var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  setTheme(systemTheme);
-                }
+              function setTheme(newTheme) {
+                if (newTheme === 'dark') document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
+              }
+              
+              var preferredTheme = null;
+              try {
+                preferredTheme = localStorage.getItem('theme');
+              } catch (_) {}
+              
+              if (preferredTheme && (preferredTheme === 'dark' || preferredTheme === 'light')) {
+                setTheme(preferredTheme);
+              } else {
+                localStorage.setItem('theme', 'system');
+                var systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                setTheme(systemTheme);
+              }
             `,
 					}}
 				/>
 			</head>
-			<body className='bg-slate-100 dark:bg-slate-900 border-slate-500 text-slate-700 dark:text-slate-300'>
+			<body className='bg-slate-100 dark:bg-slate-900 border-slate-500 min-w-[640px]'>
 				<TopBar />
 				{props.children}
 			</body>
