@@ -10,16 +10,22 @@
 	},
 	"homepage": "https://github.com/mahmad97/m-chat#readme",
 	"type": "module",
+	"engines": {
+		"node": "20"
+	},
 	"scripts": {
-		"dev": "next dev --turbo",
+		"dev": "next dev --turbo -p 3001",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start -p 3001",
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@hookform/resolvers": "3",
 		"next": "14",
 		"react": "18",
-		"react-dom": "18"
+		"react-dom": "18",
+		"react-hook-form": "7",
+		"zod": "3"
 	},
 	"devDependencies": {
 		"@types/node": "22",
