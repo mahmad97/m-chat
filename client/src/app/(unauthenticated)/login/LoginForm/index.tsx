@@ -1,8 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useActionState } from 'react';
-import { useFormStatus } from 'react-dom';
+
+import { useActionState, useState } from 'react';
+// import { useFormStatus } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -10,6 +11,7 @@ import type { ReactElement } from 'react';
 
 import Button from 'components/Button';
 import InputField from 'components/InputField';
+import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
 
 import { schema } from './schema';
 
@@ -17,6 +19,7 @@ type Schema = z.infer<typeof schema>;
 
 const LoginForm = (): ReactElement => {
 	// const [state, formAction] = useActionState(createTodo, initialState);
+	const [showPassword, setShowPassword] = useState(false);
 	const form = useForm<Schema>({
 		resolver: zodResolver(schema),
 		mode: 'onTouched',
@@ -42,8 +45,14 @@ const LoginForm = (): ReactElement => {
 				<InputField
 					id='login-password'
 					name='password'
-					type='password'
+					type={showPassword ? 'text' : 'password'}
 					label='Password'
+					suffixElement={
+						<PasswordVisibilityToggle
+							showPassword={showPassword}
+							setShowPassword={setShowPassword}
+						/>
+					}
 				/>
 
 				<Button id='login-submit' name='submit' type='submit'>
