@@ -1,5 +1,6 @@
-import { useEffect, type ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
+import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -10,10 +11,12 @@ import {
 
 type InputFieldProps = Readonly<{
 	id: string;
-	type: 'email' | 'password';
+	type: 'email' | 'password' | 'text';
 	name: string;
 	label?: string;
 	placeholder?: string;
+	prefixElement?: ReactElement;
+	suffixElement?: ReactElement;
 }>;
 
 const InputField = (props: InputFieldProps): ReactElement => {
@@ -32,10 +35,17 @@ const InputField = (props: InputFieldProps): ReactElement => {
 			: (input as HTMLInputElement).setCustomValidity('');
 	}, [errors[props.name]]);
 
-	const cssBoxStyle = 'mt-1 py-2 px-4';
+	const inputCssBoxStyle = useMemo(() => {
+		const leftPad = props.prefixElement ? 'pl-2' : 'pl-4';
+		const rightPad = props.suffixElement ? 'pr-2' : 'pr-4';
+
+		return `py-2 ${leftPad} ${rightPad}`;
+	}, [props.prefixElement, props.suffixElement]);
+
 	const backgroundStyle = 'bg-slate-100 dark:bg-slate-900';
-	const borderStyle =
-		'border border-slate-300 dark:border-slate-700 focus:border-indigo-500 focus:outline-none invalid:border-red-500 rounded-md';
+	const containerBorderStyle =
+		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-indigo-500 rounded-md';
+	const inputBorderStyle = 'border-none outline-none rounded-md';
 
 	return (
 		<div className='flex flex-col'>
@@ -44,15 +54,22 @@ const InputField = (props: InputFieldProps): ReactElement => {
 					{props.label}
 				</label>
 			)}
-			<input
-				id={props.id}
-				{...register(props.name)}
-				type={props.type}
-				placeholder={props.placeholder}
-				className={`${cssBoxStyle} ${backgroundStyle} ${inputTextStyle} ${borderStyle}`}
-			/>
-			{errors[props.name] && (
+			<div
+				className={`flex items-center mt-1 ${backgroundStyle} ${containerBorderStyle}`}>
+				{props.prefixElement && props.prefixElement}
+				<input
+					id={props.id}
+					{...register(props.name)}
+					type={props.type}
+					placeholder={props.placeholder}
+					className={`flex-auto bg-inherit ${inputCssBoxStyle} ${inputBorderStyle} ${inputTextStyle}`}
+				/>
+				{props.suffixElement && props.suffixElement}
+			</div>
+			{errors[props.name] ? (
 				<ErrorText>{`${errors[props.name]?.message}`}</ErrorText>
+			) : (
+				<span className='h-4'></span>
 			)}
 		</div>
 	);
