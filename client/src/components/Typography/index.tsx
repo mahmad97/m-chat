@@ -5,16 +5,17 @@ type TypographyProps = Readonly<{
 }>;
 
 const headingTextStyle =
-	'text-2xl font-extrabold text-slate-800 dark:text-slate-200';
+	'text-2xl font-extrabold text-neutral-800 dark:text-neutral-200';
 
-const labelTextStyle = 'text-base font-bold text-slate-700 dark:text-slate-300';
+const labelTextStyle =
+	'text-base font-bold text-neutral-700 dark:text-neutral-300';
 
 const inputTextStyle =
-	'text-base font-normal text-slate-700 dark:text-slate-300';
+	'text-base font-normal text-neutral-700 dark:text-neutral-300';
 
 const errorTextStyle = 'text-xs font-medium text-red-500';
 
-const buttonTextStyle = 'text-base font-bold text-slate-100';
+const buttonTextStyle = 'text-base font-bold text-neutral-100';
 
 const Heading = (props: TypographyProps): ReactElement => {
 	return (
