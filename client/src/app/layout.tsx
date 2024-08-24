@@ -24,7 +24,7 @@ const inter = Inter({
 
 const RootLayout = (props: RootLayoutProps): ReactElement => {
 	return (
-		<html lang='en' className={`${inter.variable}`}>
+		<html lang='en' className={inter.variable}>
 			<head>
 				<script
 					id='set-theme'

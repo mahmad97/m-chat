@@ -5,7 +5,7 @@ import VisibilityOnSVG from 'img/icons/visibility_on.icon.svg';
 
 type PasswordVisibilityToggleProps = Readonly<{
 	showPassword: boolean;
-	setShowPassword: any;
+	setShowPassword: (arg0: boolean) => void;
 }>;
 
 const PasswordVisibilityToggle = (
@@ -14,7 +14,9 @@ const PasswordVisibilityToggle = (
 	return (
 		<div
 			className='pr-2 cursor-pointer'
-			onClick={() => props.setShowPassword(!props.showPassword)}>
+			onClick={() => {
+				props.setShowPassword(!props.showPassword);
+			}}>
 			{props.showPassword ? (
 				<VisibilityOffSVG className='fill-slate-600 dark:fill-slate-400' />
 			) : (

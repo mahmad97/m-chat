@@ -43,11 +43,11 @@ const onSystemThemeChange = (
 
 const useTheme = () => {
 	const subscribe = (listener: () => void) => {
-		let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-		window.addEventListener('storage', (event) =>
-			onStorageThemeChange(event, listener)
-		);
+		window.addEventListener('storage', (event) => {
+			onStorageThemeChange(event, listener);
+		});
 		mediaQuery.addEventListener('change', (event) => {
 			onSystemThemeChange(event, listener);
 		});

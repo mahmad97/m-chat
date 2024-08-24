@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useActionState, useState } from 'react';
+import { useState } from 'react';
 // import { useFormStatus } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -38,9 +38,9 @@ const LoginForm = (): ReactElement => {
 		<FormProvider {...form}>
 			<form
 				className='mt-4 flex flex-col gap-4'
-				onSubmit={form.handleSubmit(onSubmit)}
+				onSubmit={() => form.handleSubmit(onSubmit)}
 				noValidate>
-				<InputField id='login-email' name='email' type='email' label='Email' />
+				<InputField id='login-email' name='email' type='text' label='Email' />
 
 				<InputField
 					id='login-password'

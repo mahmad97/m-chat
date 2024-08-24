@@ -11,7 +11,7 @@ import {
 
 type InputFieldProps = Readonly<{
 	id: string;
-	type: 'email' | 'password' | 'text';
+	type: 'password' | 'text';
 	name: string;
 	label?: string;
 	placeholder?: string;
@@ -25,15 +25,19 @@ const InputField = (props: InputFieldProps): ReactElement => {
 		formState: { errors },
 	} = useFormContext();
 
+	const errorMessage = errors[props.name];
+
 	useEffect(() => {
 		const input = document.getElementById(props.id);
 
 		if (!input || input.tagName !== 'INPUT') return;
 
-		errors[props.name]
-			? (input as HTMLInputElement).setCustomValidity('error')
-			: (input as HTMLInputElement).setCustomValidity('');
-	}, [errors[props.name]]);
+		if (errorMessage) {
+			(input as HTMLInputElement).setCustomValidity('error');
+		} else {
+			(input as HTMLInputElement).setCustomValidity('');
+		}
+	}, [errorMessage, props.id]);
 
 	const inputCssBoxStyle = useMemo(() => {
 		const leftPad = props.prefixElement ? 'pl-2' : 'pl-4';
@@ -50,7 +54,7 @@ const InputField = (props: InputFieldProps): ReactElement => {
 	return (
 		<div className='flex flex-col'>
 			{props.label && (
-				<label htmlFor={props.id} className={`${labelTextStyle}`}>
+				<label htmlFor={props.id} className={labelTextStyle}>
 					{props.label}
 				</label>
 			)}
@@ -66,8 +70,8 @@ const InputField = (props: InputFieldProps): ReactElement => {
 				/>
 				{props.suffixElement && props.suffixElement}
 			</div>
-			{errors[props.name] ? (
-				<ErrorText>{`${errors[props.name]?.message}`}</ErrorText>
+			{errorMessage && typeof errorMessage === 'string' ? (
+				<ErrorText>{errorMessage}</ErrorText>
 			) : (
 				<span className='h-4'></span>
 			)}
