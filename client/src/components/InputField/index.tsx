@@ -25,7 +25,7 @@ const InputField = (props: InputFieldProps): ReactElement => {
 		formState: { errors },
 	} = useFormContext();
 
-	const errorMessage = errors[props.name];
+	const errorMessage = errors[props.name]?.message;
 
 	useEffect(() => {
 		const input = document.getElementById(props.id);
@@ -48,7 +48,7 @@ const InputField = (props: InputFieldProps): ReactElement => {
 
 	const backgroundStyle = 'bg-slate-100 dark:bg-slate-900';
 	const containerBorderStyle =
-		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-indigo-500 rounded-md';
+		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-violet-500 rounded-md';
 	const inputBorderStyle = 'border-none outline-none rounded-md';
 
 	return (

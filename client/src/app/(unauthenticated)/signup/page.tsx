@@ -3,16 +3,16 @@ import type { ReactElement } from 'react';
 import { Heading } from 'components/Typography';
 
 import HelpfulLinks from './HelpfulLinks';
-import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
 
-const LoginPage = (): ReactElement => {
+const SignupPage = (): ReactElement => {
 	return (
 		<>
-			<Heading>Login</Heading>
-			<LoginForm />
+			<Heading>Signup</Heading>
+			<SignupForm />
 			<HelpfulLinks />
 		</>
 	);
 };
 
-export default LoginPage;
+export default SignupPage;

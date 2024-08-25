@@ -10,7 +10,7 @@ type ButtonProps = Readonly<{
 }>;
 
 const Button = (props: ButtonProps): ReactElement => {
-	const backgroundStyle = 'bg-indigo-500 hover:bg-indigo-600';
+	const backgroundStyle = 'bg-violet-500 hover:bg-violet-600';
 
 	return (
 		<button
