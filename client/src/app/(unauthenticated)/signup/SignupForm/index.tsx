@@ -1,12 +1,11 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import type { ReactElement } from 'react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import type { ReactElement } from 'react';
 
 import Button from 'components/Button';
 import InputField from 'components/InputField';

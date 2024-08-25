@@ -8,7 +8,7 @@ import SignupForm from './SignupForm';
 const SignupPage = (): ReactElement => {
 	return (
 		<>
-			<Heading>Signup</Heading>
+			<Heading>{'Signup'}</Heading>
 			<SignupForm />
 			<HelpfulLinks />
 		</>

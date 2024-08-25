@@ -1,7 +1,7 @@
-import { Inter } from 'next/font/google';
-
 import type { Metadata } from 'next';
 import type { ReactElement, ReactNode } from 'react';
+
+import { Inter } from 'next/font/google';
 
 import TopBar from 'components/Topbar';
 

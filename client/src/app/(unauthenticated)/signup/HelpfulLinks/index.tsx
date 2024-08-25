@@ -7,9 +7,11 @@ import { SmallLinkText, SmallText } from 'components/Typography';
 const HelpfulLinks = (): ReactElement => {
 	return (
 		<div className='mt-4'>
-			<SmallText className='whitespace-pre'>{`Already have an account? `}</SmallText>
+			<SmallText className='whitespace-pre'>
+				{'Already have an account? '}
+			</SmallText>
 			<Link href='/login'>
-				<SmallLinkText>{`Login`}</SmallLinkText>
+				<SmallLinkText>{'Login'}</SmallLinkText>
 			</Link>
 		</div>
 	);

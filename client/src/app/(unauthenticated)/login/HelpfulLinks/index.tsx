@@ -10,13 +10,15 @@ const HelpfulLinks = (): ReactElement => {
 			<div>
 				<SmallText className='whitespace-pre'>{`Don't have an account? `}</SmallText>
 				<Link href='/signup'>
-					<SmallLinkText>{`Signup`}</SmallLinkText>
+					<SmallLinkText>{'Signup'}</SmallLinkText>
 				</Link>
 			</div>
 			<div>
-				<SmallText className='whitespace-pre'>{`Forgot your password? `}</SmallText>
+				<SmallText className='whitespace-pre'>
+					{'Forgot your password? '}
+				</SmallText>
 				<Link href='/password-recovery'>
-					<SmallLinkText>{`Password recovery`}</SmallLinkText>
+					<SmallLinkText>{'Password recovery'}</SmallLinkText>
 				</Link>
 			</div>
 		</div>

@@ -8,7 +8,7 @@ import LoginForm from './LoginForm';
 const LoginPage = (): ReactElement => {
 	return (
 		<>
-			<Heading>Login</Heading>
+			<Heading>{'Login'}</Heading>
 			<LoginForm />
 			<HelpfulLinks />
 		</>
