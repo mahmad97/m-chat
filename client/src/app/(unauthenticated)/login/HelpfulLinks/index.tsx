@@ -17,7 +17,7 @@ const HelpfulLinks = (): ReactElement => {
 				<SmallText className='whitespace-pre'>
 					{'Forgot your password? '}
 				</SmallText>
-				<Link href='/password-recovery'>
+				<Link href='/'>
 					<SmallLinkText>{'Password recovery'}</SmallLinkText>
 				</Link>
 			</div>
