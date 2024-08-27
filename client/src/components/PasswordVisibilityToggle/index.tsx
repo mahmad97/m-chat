@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
-import VisibilityOffSVG from 'img/icons/visibility_off.icon.svg';
-import VisibilityOnSVG from 'img/icons/visibility_on.icon.svg';
+import VisibilityOffSVG from 'img/icons/visibility-off.icon.svg';
+import VisibilityOnSVG from 'img/icons/visibility-on.icon.svg';
 
 type PasswordVisibilityToggleProps = Readonly<{
 	showPassword: boolean;

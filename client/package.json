@@ -22,9 +22,10 @@
 	"dependencies": {
 		"@hookform/resolvers": "3",
 		"@svgr/webpack": "8",
-		"next": "14",
-		"react": "18",
-		"react-dom": "18",
+		"babel-plugin-react-compiler": "^0.0.0-experimental-9e9694c-20240826",
+		"next": "^15.0.0-rc.0",
+		"react": "^19.0.0-rc-b57d2823-20240822",
+		"react-dom": "^19.0.0-rc-b57d2823-20240822",
 		"react-hook-form": "7",
 		"zod": "3"
 	},
@@ -34,7 +35,7 @@
 		"@types/react-dom": "18",
 		"@typescript-eslint/eslint-plugin": "8",
 		"eslint": "8",
-		"eslint-config-next": "14",
+		"eslint-config-next": "^15.0.0-rc.0",
 		"postcss": "8",
 		"tailwindcss": "3",
 		"typescript": "5"

@@ -17,7 +17,8 @@
 		],
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"strict": true
+		"strict": true,
+		"target": "esnext"
 	},
 	"exclude": ["node_modules"],
 	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"]

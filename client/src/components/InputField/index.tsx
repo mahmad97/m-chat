@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -39,16 +39,13 @@ const InputField = (props: InputFieldProps): ReactElement => {
 		}
 	}, [errorMessage, props.id]);
 
-	const inputCssBoxStyle = useMemo(() => {
-		const leftPad = props.prefixElement ? 'pl-2' : 'pl-4';
-		const rightPad = props.suffixElement ? 'pr-2' : 'pr-4';
-
-		return `py-2 ${leftPad} ${rightPad}`;
-	}, [props.prefixElement, props.suffixElement]);
+	const leftPad = props.prefixElement ? 'pl-2' : 'pl-4';
+	const rightPad = props.suffixElement ? 'pr-2' : 'pr-4';
 
 	const backgroundStyle = 'bg-slate-100 dark:bg-slate-900';
 	const containerBorderStyle =
 		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-violet-500 rounded-md';
+	const inputCssBoxStyle = `py-2 ${leftPad} ${rightPad}`;
 	const inputBorderStyle = 'border-none outline-none rounded-md';
 
 	return (
