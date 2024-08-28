@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const schema = z.object({
+const loginFormSchema = z.object({
 	email: z
 		.string()
 		.min(1, { message: 'Email is required.' })
@@ -8,4 +8,4 @@ const schema = z.object({
 	password: z.string().min(1, { message: 'Password is required.' }),
 });
 
-export { schema };
+export { loginFormSchema };

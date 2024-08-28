@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const schema = z
+const signupFormSchema = z
 	.object({
 		email: z
 			.string()
@@ -17,4 +17,4 @@ const schema = z
 		path: ['confirmPassword'],
 	});
 
-export { schema };
+export { signupFormSchema };

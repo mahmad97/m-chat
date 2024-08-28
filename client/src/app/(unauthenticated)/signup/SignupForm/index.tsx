@@ -10,14 +10,13 @@ import { z } from 'zod';
 import Button from 'components/Button';
 import InputField from 'components/InputField';
 import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
+import { signupFormSchema } from 'lib/schemas/signupFormSchema';
 
-import { schema } from './schema';
-
-type Schema = z.infer<typeof schema>;
+type Schema = z.infer<typeof signupFormSchema>;
 
 const SignupForm = (): ReactElement => {
 	const form = useForm<Schema>({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(signupFormSchema),
 		mode: 'onTouched',
 		defaultValues: {
 			email: '',

@@ -10,16 +10,16 @@ import { z } from 'zod';
 import Button from 'components/Button';
 import InputField from 'components/InputField';
 import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
+import { submitLoginForm } from 'lib/actions/submitLoginForm';
+import { loginFormSchema } from 'lib/schemas/loginFormSchema';
 
-import { schema } from './schema';
-
-type Schema = z.infer<typeof schema>;
+type Schema = z.infer<typeof loginFormSchema>;
 
 const LoginForm = (): ReactElement => {
 	// const [state, formAction] = useActionState(createTodo, initialState);
 	const [showPassword, setShowPassword] = useState(false);
 	const form = useForm<Schema>({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(loginFormSchema),
 		mode: 'onTouched',
 		defaultValues: {
 			email: '',
