@@ -2,7 +2,7 @@
 
 import type { ReactElement } from 'react';
 
-import { useTheme } from 'hooks/useTheme';
+import { useTheme } from 'lib/hooks/useTheme';
 
 const ThemeToggle = (): ReactElement => {
 	const [theme, setTheme] = useTheme();
