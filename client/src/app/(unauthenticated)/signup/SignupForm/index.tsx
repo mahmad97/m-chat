@@ -16,7 +16,6 @@ import { schema } from './schema';
 type Schema = z.infer<typeof schema>;
 
 const SignupForm = (): ReactElement => {
-	const [showPassword, setShowPassword] = useState(false);
 	const form = useForm<Schema>({
 		resolver: zodResolver(schema),
 		mode: 'onTouched',
@@ -25,6 +24,9 @@ const SignupForm = (): ReactElement => {
 			password: '',
 		},
 	});
+
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
 	const onSubmit = (data: Schema) => {
 		console.log(data);
@@ -54,12 +56,12 @@ const SignupForm = (): ReactElement => {
 				<InputField
 					id='signup-confirmPassword'
 					name='confirmPassword'
-					type={showPassword ? 'text' : 'password'}
+					type={showConfirmPassword ? 'text' : 'password'}
 					label='Confirm Password'
 					suffixElement={
 						<PasswordVisibilityToggle
-							showPassword={showPassword}
-							setShowPassword={setShowPassword}
+							showPassword={showConfirmPassword}
+							setShowPassword={setShowConfirmPassword}
 						/>
 					}
 				/>
