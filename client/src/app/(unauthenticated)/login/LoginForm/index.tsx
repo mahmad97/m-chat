@@ -1,9 +1,9 @@
 'use client';
 
-import type { ReactElement } from 'react';
+import type { FormEvent, ReactElement } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useActionState, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -16,8 +16,11 @@ import { loginFormSchema } from 'lib/schemas/loginFormSchema';
 type Schema = z.infer<typeof loginFormSchema>;
 
 const LoginForm = (): ReactElement => {
-	// const [state, formAction] = useActionState(createTodo, initialState);
-	const [showPassword, setShowPassword] = useState(false);
+	const [state, formAction, isPending] = useActionState(submitLoginForm, {
+		success: false,
+		message: '',
+	});
+	const formRef = useRef<HTMLFormElement>(null);
 	const form = useForm<Schema>({
 		resolver: zodResolver(loginFormSchema),
 		mode: 'onTouched',
@@ -27,16 +30,43 @@ const LoginForm = (): ReactElement => {
 		},
 	});
 
-	const onSubmit = (data: Schema) => {
-		console.log(data);
+	const [showPassword, setShowPassword] = useState(false);
+
+	useEffect(() => {
+		console.log('here');
+		if (!state.message) return;
+		if (!state.success && state.errors) {
+			const errors = state.errors;
+			const parsedErrors = errors.filter(
+				(item, index) =>
+					errors.findIndex((elem) => elem.name === item.name) === index
+			);
+
+			parsedErrors.forEach(({ name, type, message }) => {
+				if (!(name in form.formState.errors)) {
+					form.setError(name, { type, message });
+				}
+			});
+		}
+	}, [state, form]);
+
+	const onFormSubmit = (event: FormEvent) => {
+		event.preventDefault();
+		if (!isPending) {
+			void form.handleSubmit(() => {
+				if (formRef.current) {
+					formAction(new FormData(formRef.current));
+				}
+			})(event);
+		}
 	};
-	// const { pending } = useFormStatus();
 
 	return (
 		<FormProvider {...form}>
 			<form
+				ref={formRef}
 				className='mt-4 flex flex-col gap-4'
-				onSubmit={() => form.handleSubmit(onSubmit)}
+				onSubmit={onFormSubmit}
 				noValidate>
 				<InputField id='login-email' name='email' type='text' label='Email' />
 
@@ -53,7 +83,11 @@ const LoginForm = (): ReactElement => {
 					}
 				/>
 
-				<Button id='login-submit' name='submit' type='submit'>
+				<Button
+					id='login-submit'
+					name='submit'
+					type='submit'
+					disabled={isPending}>
 					{'Login'}
 				</Button>
 			</form>
