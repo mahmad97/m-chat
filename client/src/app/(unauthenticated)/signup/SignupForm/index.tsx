@@ -1,20 +1,28 @@
 'use client';
 
-import type { ReactElement } from 'react';
+import type { FormEvent, ReactElement } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useActionState, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import Button from 'components/Button';
 import InputField from 'components/InputField';
 import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
+import { submitSignupForm } from 'lib/actions/submitSignupForm';
 import { signupFormSchema } from 'lib/schemas/signupFormSchema';
+
+type FieldName = 'email' | 'password';
 
 type Schema = z.infer<typeof signupFormSchema>;
 
 const SignupForm = (): ReactElement => {
+	const [state, formAction, isPending] = useActionState(submitSignupForm, {
+		success: false,
+		message: '',
+	});
+	const formRef = useRef<HTMLFormElement>(null);
 	const form = useForm<Schema>({
 		resolver: zodResolver(signupFormSchema),
 		mode: 'onTouched',
@@ -27,15 +35,40 @@ const SignupForm = (): ReactElement => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-	const onSubmit = (data: Schema) => {
-		console.log(data);
+	useEffect(() => {
+		if (!state.message) return;
+		if (!state.success && state.errors) {
+			const errors = state.errors;
+			const parsedErrors = errors.filter(
+				(item, index) =>
+					errors.findIndex((elem) => elem.name === item.name) === index
+			);
+
+			parsedErrors.forEach(({ name, type, message }) => {
+				if (!(name in form.formState.errors)) {
+					form.setError(name as FieldName, { type, message });
+				}
+			});
+		}
+	}, [state, form]);
+
+	const onFormSubmit = (event: FormEvent) => {
+		event.preventDefault();
+		if (!isPending) {
+			void form.handleSubmit(() => {
+				if (formRef.current) {
+					formAction(new FormData(formRef.current));
+				}
+			})(event);
+		}
 	};
 
 	return (
 		<FormProvider {...form}>
 			<form
+				ref={formRef}
 				className='mt-4 flex flex-col gap-4'
-				onSubmit={() => form.handleSubmit(onSubmit)}
+				onSubmit={onFormSubmit}
 				noValidate>
 				<InputField id='signup-email' name='email' type='text' label='Email' />
 
