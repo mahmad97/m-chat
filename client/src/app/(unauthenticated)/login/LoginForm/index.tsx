@@ -13,6 +13,8 @@ import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
 import { submitLoginForm } from 'lib/actions/submitLoginForm';
 import { loginFormSchema } from 'lib/schemas/loginFormSchema';
 
+type FieldName = 'email' | 'password';
+
 type Schema = z.infer<typeof loginFormSchema>;
 
 const LoginForm = (): ReactElement => {
@@ -33,7 +35,6 @@ const LoginForm = (): ReactElement => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	useEffect(() => {
-		console.log('here');
 		if (!state.message) return;
 		if (!state.success && state.errors) {
 			const errors = state.errors;
@@ -44,7 +45,7 @@ const LoginForm = (): ReactElement => {
 
 			parsedErrors.forEach(({ name, type, message }) => {
 				if (!(name in form.formState.errors)) {
-					form.setError(name, { type, message });
+					form.setError(name as FieldName, { type, message });
 				}
 			});
 		}
