@@ -28,7 +28,8 @@ const submitLoginForm = async (
 	}
 
 	try {
-		const serverResponse = await fetch('http://localhost:3020/auth/login', {
+		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+		const serverResponse = await fetch(`${process.env.API_URL}/auth/login`, {
 			cache: 'no-store',
 			method: 'post',
 			headers: {
@@ -38,6 +39,8 @@ const submitLoginForm = async (
 		});
 
 		const responseBody = (await serverResponse.json()) as LoginResponse;
+
+		console.log(responseBody);
 
 		return responseBody;
 	} catch (error) {
