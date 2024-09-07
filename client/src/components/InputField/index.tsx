@@ -44,7 +44,7 @@ const InputField = (props: InputFieldProps): ReactElement => {
 
 	const backgroundStyle = 'bg-slate-100 dark:bg-slate-900';
 	const containerBorderStyle =
-		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-violet-500 rounded-md';
+		'border border-slate-300 dark:border-slate-700 has-[:invalid]:border-red-500 has-[:focus]:border-violet-500 has-[:invalid:focus]:border-violet-500 rounded-md';
 	const inputCssBoxStyle = `py-2 ${leftPad} ${rightPad}`;
 	const inputBorderStyle = 'border-none outline-none rounded-md';
 
