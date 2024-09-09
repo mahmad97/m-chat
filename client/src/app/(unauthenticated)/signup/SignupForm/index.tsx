@@ -13,7 +13,7 @@ import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
 import { submitSignupForm } from 'lib/actions/submitSignupForm';
 import { signupFormSchema } from 'lib/schemas/signupFormSchema';
 
-type FieldName = 'email' | 'password';
+type FieldName = 'email' | 'username' | 'password' | 'confirmPassword';
 
 type Schema = z.infer<typeof signupFormSchema>;
 
@@ -71,6 +71,13 @@ const SignupForm = (): ReactElement => {
 				onSubmit={onFormSubmit}
 				noValidate>
 				<InputField id='signup-email' name='email' type='text' label='Email' />
+
+				<InputField
+					id='signup-username'
+					name='username'
+					type='text'
+					label='Username'
+				/>
 
 				<InputField
 					id='signup-password'

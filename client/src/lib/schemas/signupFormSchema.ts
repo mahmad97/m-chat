@@ -5,7 +5,15 @@ const signupFormSchema = z
 		email: z
 			.string()
 			.min(1, { message: 'Email is required.' })
-			.email({ message: 'Invalid email address.' }),
+			.email({ message: 'Invalid email address.' })
+			.max(255, { message: 'Email should be smaller than 256 characters.' }),
+		username: z
+			.string()
+			.min(1, { message: 'Username is required.' })
+			.regex(/^[A-Za-z0-9@!#$._-]*$/, {
+				message: 'Username can only have @!#$._- special characters.',
+			})
+			.max(63, { message: 'Username should be smaller than 64 characters.' }),
 		password: z
 			.string()
 			.min(1, { message: 'Password is required.' })
