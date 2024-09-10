@@ -1,8 +1,8 @@
 import { createHash, randomBytes } from 'crypto';
 import { Router } from 'express';
 
-import { db } from 'db.js';
-import { signupPostSchema } from 'models/authModel.js';
+import { db } from '../../db.js';
+import { signupPostSchema } from '../../models/authModel.js';
 
 const signupRouter = Router();
 

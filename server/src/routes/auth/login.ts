@@ -1,8 +1,8 @@
 import { createHash } from 'crypto';
 import { Router } from 'express';
 
-import { db } from 'db.js';
-import { loginPostSchema } from 'models/authModel.js';
+import { db } from '../../db.js';
+import { loginPostSchema } from '../../models/authModel.js';
 
 const loginRouter = Router();
 
