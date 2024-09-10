@@ -1,9 +1,27 @@
 import { createHash } from 'crypto';
 import { Router } from 'express';
 
+import { db } from 'db.js';
 import { loginPostSchema } from 'models/authModel.js';
 
 const loginRouter = Router();
+
+const InvalidLoginResponse = {
+	success: false,
+	message: 'Login error.',
+	errors: [
+		{
+			name: 'email',
+			type: 'custom',
+			message: 'Invalid login credentials',
+		},
+		{
+			name: 'password',
+			type: 'custom',
+			message: 'Invalid login credentials',
+		},
+	],
+};
 
 loginRouter.post('/', (req, res) => {
 	const parsed = loginPostSchema.safeParse(req.body);
@@ -22,29 +40,44 @@ loginRouter.post('/', (req, res) => {
 		return;
 	}
 
-	const passwordHash = createHash('sha256')
-		.update(parsed.data.password)
-		.digest('hex');
+	db.task(async (t) => {
+		const user = await t.oneOrNone({
+			text: 'SELECT id FROM users WHERE email = $1',
+			values: [parsed.data.email],
+		});
 
-	// get authentication record from db based on email
-	// if email not in db then return authentication error
+		if (!user) {
+			throw new Error('email_error');
+		}
 
-	// check if passwordHash is correct
-	// if not then return authentication error
+		return await t.one({
+			text: 'SELECT salt, password_hash FROM users_authentication WHERE id = $1',
+			values: [user.id],
+		});
+	})
+		.then((user) => {
+			const passwordHash = createHash('sha256')
+				.update(user.salt)
+				.update(parsed.data.password)
+				.digest('base64');
 
-	// return {
-	//   success: false,
-	//   message: 'Authentication failure',
-	//   errors: [
-	//     {
-	//       name: 'password',
-	//       type: 'custom',
-	//       message: 'Incorrect password and/or email.',
-	//     },
-	//   ],
-	// };
-
-	res.send({ message: `Password hashed to: ${passwordHash}` });
+			if (passwordHash != user.password_hash) {
+				res.status(400).json(InvalidLoginResponse);
+			} else {
+				res.json({
+					success: true,
+					message: 'Login successful.',
+				});
+			}
+		})
+		.catch((error) => {
+			if (error.message == 'email_error') {
+				res.status(400).json(InvalidLoginResponse);
+			} else {
+				console.log(error);
+				res.status(500).json({ success: false, message: 'Server Error' });
+			}
+		});
 });
 
 export { loginRouter };

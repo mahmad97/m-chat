@@ -40,8 +40,6 @@ const submitLoginForm = async (
 
 		const responseBody = (await serverResponse.json()) as LoginResponse;
 
-		console.log(responseBody);
-
 		return responseBody;
 	} catch (error) {
 		console.error(error);

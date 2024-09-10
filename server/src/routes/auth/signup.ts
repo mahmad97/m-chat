@@ -32,7 +32,7 @@ signupRouter.post('/', async (req, res) => {
 		.digest('base64');
 
 	db.tx(async (t) => {
-		const userId = await t
+		const userId: number = await t
 			.one({
 				text: 'INSERT INTO users(email, username, displayname) VALUES($1, $2, $2) RETURNING id',
 				values: [email, username],
