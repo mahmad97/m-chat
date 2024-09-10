@@ -3,6 +3,7 @@
 import type { FormEvent, ReactElement } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -34,6 +35,7 @@ const SignupForm = (): ReactElement => {
 
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+	const router = useRouter();
 
 	useEffect(() => {
 		if (!state.message) return;
@@ -50,7 +52,11 @@ const SignupForm = (): ReactElement => {
 				}
 			});
 		}
-	}, [state, form]);
+
+		if (state.success) {
+			router.push('/login');
+		}
+	}, [state, form, router]);
 
 	const onFormSubmit = (event: FormEvent) => {
 		event.preventDefault();
