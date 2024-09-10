@@ -44,7 +44,7 @@ loginRouter.post('/', (req, res) => {
 	//   ],
 	// };
 
-	res.send({ message: `Password hashed to: asd` });
+	res.send({ message: `Password hashed to: ${passwordHash}` });
 });
 
 export { loginRouter };
