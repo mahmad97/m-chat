@@ -14,7 +14,7 @@ import PasswordVisibilityToggle from 'components/PasswordVisibilityToggle';
 import { submitLoginForm } from 'lib/actions/submitLoginForm';
 import { loginFormSchema } from 'lib/schemas/loginFormSchema';
 
-type FieldName = 'email' | 'password';
+type FieldName = 'username' | 'password';
 
 type Schema = z.infer<typeof loginFormSchema>;
 
@@ -28,7 +28,7 @@ const LoginForm = (): ReactElement => {
 		resolver: zodResolver(loginFormSchema),
 		mode: 'onTouched',
 		defaultValues: {
-			email: '',
+			username: '',
 			password: '',
 		},
 	});
@@ -75,7 +75,12 @@ const LoginForm = (): ReactElement => {
 				className='mt-4 flex flex-col gap-4'
 				onSubmit={onFormSubmit}
 				noValidate>
-				<InputField id='login-email' name='email' type='text' label='Email' />
+				<InputField
+					id='login-username'
+					name='username'
+					type='text'
+					label='Username'
+				/>
 
 				<InputField
 					id='login-password'
