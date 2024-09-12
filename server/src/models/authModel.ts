@@ -1,10 +1,9 @@
 import { z } from 'zod';
 
 const loginPostSchema = z.object({
-	email: z
+	username: z
 		.string({ message: 'Email must be a string.' })
-		.min(1, { message: 'Email is required.' })
-		.email({ message: 'Invalid email address.' }),
+		.min(1, { message: 'Email is required.' }),
 	password: z
 		.string({ message: 'Password must be a string.' })
 		.min(1, { message: 'Password is required.' }),

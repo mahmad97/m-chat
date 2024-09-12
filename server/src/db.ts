@@ -17,4 +17,4 @@ const connection: IConnectionParameters = {
 const pgpromise = pgPromise();
 const db = pgpromise(connection);
 
-export { db };
+export { db, pgpromise };
