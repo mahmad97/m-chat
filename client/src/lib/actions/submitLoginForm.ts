@@ -1,5 +1,8 @@
 'use server';
 
+import { cookies } from 'next/headers';
+
+import { cookieExtractor } from 'lib/functions/cookieExtractor';
 import { loginFormSchema } from 'lib/schemas/loginFormSchema';
 
 interface LoginResponse {
@@ -36,6 +39,12 @@ const submitLoginForm = async (
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(parsed.data),
+		});
+
+		const cookieStrings = serverResponse.headers.getSetCookie();
+
+		cookieStrings.forEach((cookieString) => {
+			cookies().set(cookieExtractor(cookieString));
 		});
 
 		const responseBody = (await serverResponse.json()) as LoginResponse;
